@@ -70,6 +70,9 @@ $(document).ready(function () {
 
     function renderTrivia() {
 
+        var div = $("<div>");
+        var button = $("<button>");
+
         $("#question").html(triviaData.question[index++]);
 
         for (let i = 0; i < 4; i++) {
@@ -81,6 +84,16 @@ $(document).ready(function () {
 
         }
     }
+
+    // Kavitha's Code
+    // for (var i = 0; i < 4; i++) {
+    //     var options = $("<div>");
+    //     options.attr('id', 'opt' + i);
+    //     options.attr('class', 'choice');
+    //     options.attr('value', i);
+    //     options.text(triviaList[questionNumber].options[i]);
+    //     $("#options").append(options);
+    // }
 
     renderTrivia();
 
