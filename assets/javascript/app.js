@@ -66,10 +66,29 @@ $(document).ready(function () {
             "6.3 billion gallons of beer are consumed annually in the US.  New Hampshire comes in first with 43 gallons per person; Utah is last with 19 gallons per person."]
     };
 
-    $("#question").html(triviaData.question[0]);
-    $("#choice1").html("1) " + triviaData.choice1Text[0]);
-    $("#choice2").html("2) " + triviaData.choice2Text[0]);
-    $("#choice3").html("3) " + triviaData.choice3Text[0]);
-    $("#choice4").html("4) " + triviaData.choice4Text[0]);
+    var index = 0;
+
+    function renderTrivia() {
+
+        $("#question").html(triviaData.question[index++]);
+
+        for (let i = 0; i < 4; i++) {
+            $("#buttons").html("<div><button id='choice" + (i + 1) + "' class='buttons'>");
+            $("#choice1").html((i + 1) + ") " + triviaData.choice1Text[i]);
+            $("#choice2").html((i + 1) + ") " + triviaData.choice2Text[i]);
+            $("#choice3").html((i + 1) + ") " + triviaData.choice3Text[i]);
+            $("#choice4").html((i + 1) + ") " + triviaData.choice4Text[i]);
+
+        }
+    }
+
+    renderTrivia();
+
+    // Display Trivia
+    // $("#question").html(triviaData.question[0]);
+    // $("#choice1").html("1) " + triviaData.choice1Text[0]);
+    // $("#choice2").html("2) " + triviaData.choice2Text[0]);
+    // $("#choice3").html("3) " + triviaData.choice3Text[0]);
+    // $("#choice4").html("4) " + triviaData.choice4Text[0]);
 
 });

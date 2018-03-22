@@ -18,7 +18,7 @@ span {
     color: orange;
     font-size: 101px;
 }
-.button {
+.buttons {
     background-color: transparent;
     border-radius: 10px;
     color: darkgreen;
@@ -30,10 +30,10 @@ span {
     text-align: center;
     width: 300px;
 }
-.button:active {
+.buttons:active {
     transform: translateY(4px);
 }
-.button:hover {
+.buttons:hover {
     background: lightgreen;
 }
 .wrapper {
