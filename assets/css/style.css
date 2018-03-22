@@ -1,0 +1,60 @@
+body {
+    background: url('../images/beachAlcohol.jpeg');;
+    background-size: 100vw 100vh;
+    box-sizing: border-box;
+    color: green;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 15px;
+    text-shadow: 0 0 15px orange;
+}
+h1 {
+    color: brown;
+    font-size: 70px;
+    font-style: italic;
+    /* text-shadow: 0 0 15px orange; */
+}
+span {
+    color: orange;
+    font-size: 101px;
+}
+.button {
+    background-color: transparent;
+    border-radius: 10px;
+    color: darkgreen;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+    outline: none;
+    padding: 10px 20px;
+    text-align: center;
+    width: 300px;
+}
+.button:active {
+    transform: translateY(4px);
+}
+.button:hover {
+    background: lightgreen;
+}
+.wrapper {
+    background: lightcyan;
+    border-radius: 15px;
+    height: 600px;
+    margin: 10% auto;
+    opacity: .9;
+    padding: 20px;
+    text-align: center;
+    width: 800px;
+
+}
+#question {
+    color: brown;
+    font-size: 34px;
+}
+#time {
+    background: gold;
+    border-radius: 15px;
+    margin: 0 auto;
+    padding: 10px;
+    width: 500px;
+}

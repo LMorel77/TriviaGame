@@ -22,27 +22,27 @@ $(document).ready(function () {
             "Which U.S. General drank alcohol on the job while leading his troops?",
             "Prior to 2009, which country permitted drunk driving as a legal excuse for car accidents?",
             "How much beer is consumed annually in the U.S.?"],
-        choice1Label: 'a',
+        choice1Label: 1,
         choice1Text: ["Rum", "60 proof", "Tequila", "Tequini", "Spirit", "Taxes",
             "Red", "Mary Todd Lincoln", "Gin", "5ml", "Pint of Stout", "Riesling",
             "Bacardi", "0.5 liters", "Vodka and Peach Schnapps", "Gin", "300", "10,000",
             "Ulysses S. Grant", "Colombia", "10.5 million"],
-        choice2Label: 'b',
+        choice2Label: 2,
         choice2Text: ["Gin", "70 proof", "Gin", "Long Island Iced Tea", "Little Water",
             "Production", "Pink", "Martha Washington", "Vodka", "10ml", "Pint of Lager",
             "Syrah", "Malibu", "1 liter", "Gin and Vermouth", "Whiskey", "600", "49 million",
             "George Washington", "Brazil", "1.2 billion"],
-        choice3Label: 'c',
+        choice3Label: 3,
         choice3Text: ["Bourbon", "120 proof", "Rum", "Mexquini", "Alcohol", "Marketing",
             "Clear; no color", "Pat Nixon", "Rum", "50ml", "Pint of Ale", "Cabernet Sauvignon",
             "Tanqueray", "0.75 liters", "Rum and Grand Marnrier", "Scotch", "1200", "16 million",
             "Dwight Eisenhower", "Chile", "500,000"],
-        choice4Label: 'd',
+        choice4Label: 4,
         choice4Text: ["Brandy", "190 proof", "Whiskey", "Dirty Martini", "God of Love", "Distribution",
             "Brown", "Michelle Obama", "Scotch", "25ml", "Large Glass of Wine", "Malbec", "Ron Zacapa",
             "0.85 liters", "Vodka and Brandy", "Rum", "900", "100,000", "Robert E. Lee", "Uruguay",
             "6.3 billion"],
-        answerLabel: ["c", "d", "c", "a", "c", "a", "c", "b", "a", "b", "d", "a", "c", "c", "a", "b", "b", "b", "a", "d", "d"],
+        answerLabel: [3, 4, 3, 1, 3, 1, 3, 2, 1, 2, 4, 1, 3, 3, 1, 2, 2, 2, 1, 4, 4],
         answerText: ["Bourbon Whiskey, named after Bourbon County, Kentucky, is the official distilled spirit of the United States.",
             "190 proof is about 95% alcohol. At higher proof, the alcohol draws moisture from the air and self-dilutes.",
             "In the 1800s, people cleaned their hair with rum to maintain its health; they also applied brandy to strengthen the roots.",
@@ -66,17 +66,10 @@ $(document).ready(function () {
             "6.3 billion gallons of beer are consumed annually in the US.  New Hampshire comes in first with 43 gallons per person; Utah is last with 19 gallons per person."]
     };
 
-    // Testing my object
-    console.log("Question[0]: " + triviaData.question[0]);
-    console.log("Choice1 Label: " + triviaData.choice1Label);
-    console.log("Choice1 Text[0]: " + triviaData.choice1Text[0]);
-    console.log("Choice2 Label: " + triviaData.choice2Label);
-    console.log("Choice2 Text[0]: " + triviaData.choice2Text[0]);
-    console.log("Choice3 Label: " + triviaData.choice3Label);
-    console.log("Choice3 Text[0]: " + triviaData.choice3Text[0]);
-    console.log("Choice4 Label: " + triviaData.choice4Label);
-    console.log("Choice4 Text[0]: " + triviaData.choice4Text[0]);
-    console.log("Answer Label[0]: " + triviaData.answerLabel[0]);
-    console.log("Answer Text[0]: " + triviaData.answerText[0]);
+    $("#question").html(triviaData.question[0]);
+    $("#choice1").html("1) " + triviaData.choice1Text[0]);
+    $("#choice2").html("2) " + triviaData.choice2Text[0]);
+    $("#choice3").html("3) " + triviaData.choice3Text[0]);
+    $("#choice4").html("4) " + triviaData.choice4Text[0]);
 
 });
