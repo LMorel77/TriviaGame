@@ -110,21 +110,21 @@ $(document).ready(function () {
     var correctAnswers = 0;
     var incorrectAnswers = 0;
     var messages = {
-        correct: ["Correct!", "Bingo!", "You got it!", "Right on!", "You're good at this!", "Impressive"],
-        incorrect: ["Oops, wrong answer!", "Nope, that's not it.", "Sorry, that's incorrect", "Incorrecto!"],
+        correct: ["Correct!", "Bingo!", "You got it!", "Sweet, right answer!", "Right on!", "You're good at this!", "Impressive!", "Nice!", "Correctomundo!", "Yes, sir!"],
+        incorrect: ["Oops, wrong answer!", "Nope, that's not it.", "Sorry, that's incorrect", "Incorrecto!", "Um, yeah, that's not the right answer.", "No, señor. Estás equivocado."],
         timeOver: "Time is up!",
         gameOver: "Awesome, you're done!"
     };
     var seconds = null;
     var time = null;
-    var triviaIndex = 0;
+    var triviaIndex = 3;
     var unansweredQuestions = 0;
 
     // Start Page Function
     function renderStartPage() {
-        
+
         var button = $("<button>");
-        var rules = "This is a fun liquor trivia game for all you responsible drinkers! <p>There are a total of 21 questions. Go ahead, give it a shot!</p> <p>Press START to play.</p> Cheers!"
+        var rules = "This is a fun liquor trivia game for all you responsible drinkers! <p>There are a total of 21 questions. Go ahead, give it a shot!</p> <p>Press the big <strong style='color:green'>START</strong> button up above to play.</p> Cheers!"
 
         button.addClass("startButton").text("START");
         // button.text("START");
@@ -137,10 +137,10 @@ $(document).ready(function () {
     // Trivia Page Function
     function renderTriviaPage() {
 
-        $("#time").addClass("time");
+        $("#triviaTime").addClass("time");
         $("#question").addClass("question");
         $("#choices").addClass("choices")
-        $("#time").html("Time Remaining: ");
+        $("#triviaTime").html("Time Remaining: ");
         $("#question").html((triviaIndex + 1) + ") " + trivia[triviaIndex].question);
 
         for (let i = 0; i < 4; i++) {
@@ -157,10 +157,37 @@ $(document).ready(function () {
 
         };
 
-        triviaIndex++;
-
     };
 
+    function renderAnswerPage() {
+
+        $("#triviaTime").addClass("time");
+        $("#message").addClass("message");
+        $("#correctAnswer").addClass("answerInfo");
+        $("#answerInfo").addClass("answerInfo");
+        $("#triviaTime").html("Time Remaining: ");
+
+        if (true) {
+            correctAnswers++;
+            var correctMessage = messages.correct[Math.floor(Math.random() * messages.correct.length)];
+            $("#message").text(correctMessage);
+            $("#answerInfo").text(trivia[triviaIndex].answerInfo);
+        }
+        else {
+            incorrectAnswers++;
+            var incorrectMessage = messages.incorrect[Math.floor(Math.random() * messages.incorrect.length)];
+            var answer = trivia[triviaIndex].answerIndex;
+            $("#message").text(incorrectMessage);
+            $("#correctAnswer").html('The correct answer was: <strong style="color:green">' + trivia[triviaIndex].choices[answer] + '</strong>');
+            $("#answerInfo").html('<strong style="color:green">' + trivia[triviaIndex].answerInfo + '</strong>');
+            console.log("The correct answer was: " + trivia[triviaIndex].choices[answer]);
+        }
+
+        triviaIndex++;
+
+    }
+
+    renderAnswerPage();
     // renderStartPage();
     // renderTriviaPage();
 
