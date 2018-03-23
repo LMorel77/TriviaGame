@@ -1,29 +1,96 @@
+/* General Styling */
 body {
     background: url('../images/beachAlcohol.jpeg');;
     background-size: 100vw 100vh;
     box-sizing: border-box;
-    color: green;
-    font-size: 27px;
+    color: brown;
     font-weight: bold;
     padding: 15px;
     text-shadow: 0 0 15px orange;
 }
-h1 {
+.wrapper {
+    background-color: rgba(224,255,255, 0.7); 
+    border-radius: 15px;
+    height: 600px;
+    margin: 10% auto;
+    position: relative;
+    text-align: center;
+    width: 800px;
+}
+
+/* Header Styling */
+.header {
+    background: lightgoldenrodyellow;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     color: brown;
     font-size: 70px;
     font-style: italic;
-    /* text-shadow: 0 0 15px orange; */
+    padding-bottom: 25px;
+    padding-top: 10px;
 }
 span {
     color: orange;
     font-size: 101px;
 }
-.buttons {
-    background-color: transparent;
+
+/* Start Page Layout */
+.startButton {
+    background-color: palegreen;
     border-radius: 10px;
-    color: darkgreen;
+    color: green;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 21px;
+    font-weight: bold;
+    margin: 69px;
+    outline: none;
+    padding: 35px;
+    text-align: center;
+    width: 200px;
+}
+.startButton:active {
+    transform: translateY(4px);
+}
+.startButton:hover {
+    background: lightgreen;
+}
+.intro {
+    font-size: 72px;
+}
+.rules {
+    font-size: 23px;
+    line-height: 125%;
+    padding: 20px;
+}
+
+/* Trivia Page Layout */
+.time {
+    background: brown;
+    border-radius: 15px;
+    color: lightgoldenrodyellow;
+    font-size: 21px;
+    margin: 40px 195px 0px;
+    padding: 5px;
+    width: 400px;
+}
+.question {
+    color: brown;
+    font-size: 36px;
+    margin: 35px 50px 15px;
+    text-align: justify;
+}
+.choices {
+    bottom: 20px;
+    left: 250px;
+    position: absolute;
+}
+.buttons {
+    background-color: lightgoldenrodyellow;
+    border-radius: 10px;
+    color: brown;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
     margin: 5px;
     outline: none;
     padding: 10px 20px;
@@ -35,26 +102,4 @@ span {
 }
 .buttons:hover {
     background: lightgreen;
-}
-.wrapper {
-    background: lightcyan;
-    border-radius: 15px;
-    height: 600px;
-    margin: 10% auto;
-    opacity: .9;
-    padding: 20px;
-    text-align: center;
-    width: 800px;
-
-}
-#question {
-    color: brown;
-    font-size: 34px;
-}
-#time {
-    background: gold;
-    border-radius: 15px;
-    margin: 0 auto;
-    padding: 10px;
-    width: 500px;
 }
