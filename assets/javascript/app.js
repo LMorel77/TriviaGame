@@ -137,7 +137,7 @@ $(document).ready(function () {
     // Trivia Page Function
     function renderTriviaPage() {
 
-        clearPage(); // Clears all elements
+        $(".content").empty();
 
         seconds = 10;
 
@@ -161,7 +161,7 @@ $(document).ready(function () {
 
         };
 
-        runTimer(); // Sets off 15 second timer
+        runTimer(); // Sets off 10 second timer
 
         $(".buttons").on("click", function() {
             
@@ -176,7 +176,7 @@ $(document).ready(function () {
 
     function renderAnswerPage() {
 
-        clearPage(); // Clears all elements
+        $(".content").empty();
 
         var answer = trivia[triviaIndex].answerIndex;
 
@@ -217,7 +217,7 @@ $(document).ready(function () {
 
     function renderConclusionPage() {
 
-        clearPage(); // Clears all elements
+        $(".content").empty();
 
         var button = $("<button>");
         var correct = '<p>Correct Answers: <strong>' + correctAnswers + '</strong></p>';
@@ -233,24 +233,6 @@ $(document).ready(function () {
         $("#results").addClass("answerInfo");
         $("#results").append(results);
         $("#restart").html(button);
-
-    };
-
-    function clearPage() {
-
-        $("#start").empty();
-        $("#intro").empty();
-        $("#rules").empty();
-        $(".rules").empty();
-        $("#triviaTime").empty();
-        $("#question").empty();
-        $("#choices").empty();
-        $("#message").empty();
-        $("#correctAnswer").empty();
-        $("#answerInfo").empty();
-        $("#finalMessage").empty();
-        $("#results").empty();
-        $("#restart").empty();
 
     };
 
@@ -284,8 +266,6 @@ $(document).ready(function () {
         incorrectAnswers = 0;
         triviaIndex = 0;
         userChoice = null;
-
-        console.log("[Start] TriviaIndex: " + triviaIndex);
 
         renderTriviaPage();
 
