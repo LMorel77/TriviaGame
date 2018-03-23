@@ -23,7 +23,7 @@ $(document).ready(function () {
     }, {
         question: "Vodka is Russian for what?",
         choices: ["Spirit", "Little Water", "Alcohol", "God of Love"],
-        answerIndex: 2,
+        answerIndex: 1,
         answerInfo: "Vodka is Russian for grain spirits that haven’t been flavored. It means \"little water.\""
     }, {
         question: "What is the biggest driving factor in the cost of alcohol?",
@@ -39,7 +39,7 @@ $(document).ready(function () {
         question: "Which U.S. president’s wife started her happy hour at 3:00 pm?",
         choices: ["Mary Todd Lincoln", "Martha Washington", "Pat Nixon", "Michelle Obama"],
         answerIndex: 1,
-        answerInfo: "George Washington’s wife, Martha Washington."
+        answerInfo: "Martha Washington, George Washington’s wife, started her happy hour at 3:00 pm."
     }, {
         question: "Which alcohol is considered a diuretic?",
         choices: ["Gin", "Vodka", "Rum", "Scotch"],
@@ -49,7 +49,7 @@ $(document).ready(function () {
         question: "How many milliliters of pure alcohol make up one alcoholic unit?",
         choices: ["5ml", "10ml", "50ml", "25ml"],
         answerIndex: 1,
-        answerInfo: "10ml"
+        answerInfo: "One alcohol unit consists of 10ml of pure alcohol."
     }, {
         question: "Which of these drinks contains more alcohol units?",
         choices: ["Pint of Stout", "Pint of Lager", "Pint of Ale", "Large Glass of Wine"],
@@ -107,6 +107,7 @@ $(document).ready(function () {
         answerInfo: "6.3 billion gallons of beer are consumed annually in the US.  New Hampshire comes in first with 43 gallons per person; Utah is last with 19 gallons per person."
     }];
 
+    var answered = null;
     var correctAnswers = null;
     var incorrectAnswers = null;
     var intervalId = null;
@@ -138,12 +139,12 @@ $(document).ready(function () {
 
         clearPage(); // Clears all elements
 
-        seconds = 15;
+        seconds = 10;
 
         $("#triviaTime").addClass("time");
         $("#question").addClass("question");
         $("#choices").addClass("choices")
-        $("#triviaTime").html("Time Remaining: " + seconds + " seconds");
+        $("#triviaTime").html("Time Remaining: " + seconds);
         $("#question").html((triviaIndex + 1) + ") " + trivia[triviaIndex].question);
 
         for (let i = 0; i < 4; i++) {
@@ -160,19 +161,13 @@ $(document).ready(function () {
 
         };
 
-        // Testing
-        console.log("[Before Timer] triviaIndex = " + triviaIndex);
-
         runTimer(); // Sets off 15 second timer
 
         $(".buttons").on("click", function() {
             
             userChoice = $(this).val();
-
-            // Testing
-            console.log("UserChoice = " + userChoice);
-
-            clearInterval(intervalId);
+            answered = true;
+            clearInterval(intervalId); // Stops timer
             renderAnswerPage();
 
         });
@@ -185,36 +180,38 @@ $(document).ready(function () {
 
         var answer = trivia[triviaIndex].answerIndex;
 
-        // Testing
-        console.log("[AnswerPage] Answer = " + answer);
-
         $("#triviaTime").addClass("time");
         $("#message").addClass("message");
         $("#correctAnswer").addClass("answerInfo");
         $("#answerInfo").addClass("answerInfo");
         $("#triviaTime").html("Time Remaining: " + seconds);;
 
-        if (userChoice == trivia[triviaIndex].answerIndex) {
+        if (userChoice == trivia[triviaIndex].answerIndex && answered == true) {
             correctAnswers++;
             var correctMessage = messages.correct[Math.floor(Math.random() * messages.correct.length)];
-            $("#message").text(correctMessage);
-            $("#answerInfo").text(trivia[triviaIndex].answerInfo);
+            $("#message").html('<strong>' + correctMessage + '</strong>');
+            $("#answerInfo").html('<strong>' + trivia[triviaIndex].answerInfo + '</strong>');
         }
-        else {
+        else if (userChoice != trivia[triviaIndex].answerIndex && answered == true) {
             incorrectAnswers++;
             var incorrectMessage = messages.incorrect[Math.floor(Math.random() * messages.incorrect.length)];
             $("#message").text(incorrectMessage);
             $("#correctAnswer").html('The correct answer was: <strong>' + trivia[triviaIndex].choices[answer] + '</strong>');
             $("#answerInfo").html('<strong>' + trivia[triviaIndex].answerInfo + '</strong>');
         }
+        else {
+            $("#message").text(messages.timeOver);
+            $("#correctAnswer").html('The correct answer was: <strong>' + trivia[triviaIndex].choices[answer] + '</strong>');
+            $("#answerInfo").html('<strong>' + trivia[triviaIndex].answerInfo + '</strong>');
+        }
 
-        if (triviaIndex == (triviaIndex.length - 1)) {
-            setTimeout(renderConclusionPage, 3000);
+        if (triviaIndex == 20) {
+            setTimeout(renderConclusionPage, 2000);
         }
         else {
             userChoice = null;
             triviaIndex++;
-            setTimeout(renderTriviaPage, 3000);
+            setTimeout(renderTriviaPage, 2000);
         }
     };
 
@@ -230,7 +227,7 @@ $(document).ready(function () {
         var unanswered = '<p>Unanswered: <strong>' + (21 - totalAnswered) + '</strong></p>';
         var results = correct + incorrect + unanswered; 
 
-
+        $("#triviaTime").html("<style='display:none'>");
         button.addClass("startButton").text("START OVER?");
         $("#finalMessage").addClass("message").text(farewell);
         $("#results").addClass("answerInfo");
@@ -260,18 +257,21 @@ $(document).ready(function () {
     function runTimer() {
 
         clearInterval(intervalId);
-        seconds = 15;
-        intervalId = setInterval(displayTimer, 1000);
+        seconds = 10;
+        intervalId = setInterval(displayTimer, 1000); // Starts timer
     };
 
     function displayTimer() {
 
-        $("#triviaTime").addClass("time");
-        $("#triviaTime").html("Time Remaining: " + seconds);
         seconds--;
 
-        if (seconds === 0) {
-            number = 15; // Timer reset
+        $("#triviaTime").addClass("time");
+        $("#triviaTime").html("Time Remaining: " + seconds);
+
+        if (seconds == 0) {
+            clearInterval(intervalId);
+            seconds = 10; // Timer reset
+            answered = false;
             renderAnswerPage();
         }
       }
@@ -283,16 +283,12 @@ $(document).ready(function () {
         correctAnswers = 0;
         incorrectAnswers = 0;
         triviaIndex = 0;
+        userChoice = null;
 
         console.log("[Start] TriviaIndex: " + triviaIndex);
 
         renderTriviaPage();
 
-    });
-
-    $(document).on("click", ".buttons", function() {
-
-        renderAnswerPage();
     });
 
 });

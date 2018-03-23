@@ -73,8 +73,9 @@ span {
     border-radius: 15px;
     color: lightgoldenrodyellow;
     font-size: 21px;
+    line-height: 35px;
     margin: 40px 195px 0px;
-    padding: 5px;
+    /* padding: 5px; */
     width: 400px;
 }
 .question {
