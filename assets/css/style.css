@@ -8,6 +8,9 @@ body {
     padding: 15px;
     text-shadow: 0 0 15px orange;
 }
+strong {
+    color: green;
+}
 .wrapper {
     background-color: rgba(224,255,255, 0.7); 
     border-radius: 15px;
@@ -44,9 +47,9 @@ span {
     font-weight: bold;
     margin: 69px;
     outline: none;
-    padding: 35px;
+    padding: 25px;
     text-align: center;
-    width: 200px;
+    width: 220px;
 }
 .startButton:active {
     transform: translateY(4px);

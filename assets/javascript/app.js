@@ -113,21 +113,19 @@ $(document).ready(function () {
         correct: ["Correct!", "Bingo!", "You got it!", "Sweet, right answer!", "Right on!", "You're good at this!", "Impressive!", "Nice!", "Correctomundo!", "Yes, sir!"],
         incorrect: ["Oops, wrong answer!", "Nope, that's not it.", "Sorry, that's incorrect", "Incorrecto!", "Um, yeah, that's not the right answer.", "No, señor. Estás equivocado."],
         timeOver: "Time is up!",
-        gameOver: "Awesome, you're done!"
+        gameOver: ["Awesome, you're done!", "Great job, you're finished!", "All done! Excellent!", "Trivia complete! Well done!"]
     };
     var seconds = null;
     var time = null;
-    var triviaIndex = 3;
-    var unansweredQuestions = 0;
+    var triviaIndex = 5;
 
     // Start Page Function
     function renderStartPage() {
 
         var button = $("<button>");
-        var rules = "This is a fun liquor trivia game for all you responsible drinkers! <p>There are a total of 21 questions. Go ahead, give it a shot!</p> <p>Press the big <strong style='color:green'>START</strong> button up above to play.</p> Cheers!"
+        var rules = "This is a fun liquor trivia game for all you responsible drinkers! <p>There are a total of 21 questions. Go ahead, give it a shot!</p> <p>Press the big <strong>START</strong> button up above to play.</p> Cheers!"
 
         button.addClass("startButton").text("START");
-        // button.text("START");
         $("#start").append(button);
         $("#intro").addClass("intro").text("Welcome!");
         $("#rules").addClass("rules").html(rules);
@@ -178,16 +176,36 @@ $(document).ready(function () {
             var incorrectMessage = messages.incorrect[Math.floor(Math.random() * messages.incorrect.length)];
             var answer = trivia[triviaIndex].answerIndex;
             $("#message").text(incorrectMessage);
-            $("#correctAnswer").html('The correct answer was: <strong style="color:green">' + trivia[triviaIndex].choices[answer] + '</strong>');
-            $("#answerInfo").html('<strong style="color:green">' + trivia[triviaIndex].answerInfo + '</strong>');
-            console.log("The correct answer was: " + trivia[triviaIndex].choices[answer]);
+            $("#correctAnswer").html('The correct answer was: <strong>' + trivia[triviaIndex].choices[answer] + '</strong>');
+            $("#answerInfo").html('<strong>' + trivia[triviaIndex].answerInfo + '</strong>');
         }
 
         triviaIndex++;
 
     }
 
-    renderAnswerPage();
+    function renderConclusionPage() {
+
+        var button = $("<button>");
+        var correct = '<p>Correct Answers: <strong>' + correctAnswers + '</strong></p>';
+        var incorrect = '<p>Incorrect Answers: <strong>' + incorrectAnswers + '</strong></p>';
+        var totalAnswered = correctAnswers + incorrectAnswers;
+        var unanswered = '<p>Unanswered: <strong>' + (21 - totalAnswered) + '</strong></p>';
+        var results = correct + incorrect + unanswered; 
+        var farewell = messages.gameOver[Math.floor(Math.random() * messages.gameOver.length)];
+
+
+        button.addClass("restartButton startButton").text("START OVER?");
+        $("#finalMessage").addClass("message").text(farewell);
+        $("#results").addClass("answerInfo");
+        $("#results").append(results);
+        $("#restart").html(button);
+
+    }
+
+
+    // renderAnswerPage();
+    // renderConclusionPage();
     // renderStartPage();
     // renderTriviaPage();
 
