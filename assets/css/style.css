@@ -15,7 +15,8 @@ strong {
     background-color: rgba(224,255,255, 0.7); 
     border-radius: 15px;
     height: 600px;
-    margin: 10% auto;
+    margin: auto;
+    margin-top: 5%;
     position: relative;
     text-align: center;
     width: 800px;
@@ -63,7 +64,7 @@ span {
 .rules {
     font-size: 23px;
     line-height: 125%;
-    padding: 20px;
+    margin-top: 15px;
 }
 
 /* Trivia Page Layout */

@@ -107,8 +107,9 @@ $(document).ready(function () {
         answerInfo: "6.3 billion gallons of beer are consumed annually in the US.  New Hampshire comes in first with 43 gallons per person; Utah is last with 19 gallons per person."
     }];
 
-    var correctAnswers = 0;
-    var incorrectAnswers = 0;
+    var correctAnswers = null;
+    var incorrectAnswers = null;
+    var intervalId = null;
     var messages = {
         correct: ["Correct!", "Bingo!", "You got it!", "Sweet, right answer!", "Right on!", "You're good at this!", "Impressive!", "Nice!", "Correctomundo!", "Yes, sir!"],
         incorrect: ["Oops, wrong answer!", "Nope, that's not it.", "Sorry, that's incorrect", "Incorrecto!", "Um, yeah, that's not the right answer.", "No, señor. Estás equivocado."],
@@ -116,8 +117,8 @@ $(document).ready(function () {
         gameOver: ["Awesome, you're done!", "Great job, you're finished!", "All done! Excellent!", "Trivia complete! Well done!"]
     };
     var seconds = null;
-    var time = null;
-    var triviaIndex = 5;
+    var triviaIndex = null;
+    var userChoice = null;
 
     // Start Page Function
     function renderStartPage() {
@@ -135,10 +136,14 @@ $(document).ready(function () {
     // Trivia Page Function
     function renderTriviaPage() {
 
+        clearPage(); // Clears all elements
+
+        seconds = 15;
+
         $("#triviaTime").addClass("time");
         $("#question").addClass("question");
         $("#choices").addClass("choices")
-        $("#triviaTime").html("Time Remaining: ");
+        $("#triviaTime").html("Time Remaining: " + seconds + " seconds");
         $("#question").html((triviaIndex + 1) + ") " + trivia[triviaIndex].question);
 
         for (let i = 0; i < 4; i++) {
@@ -155,17 +160,41 @@ $(document).ready(function () {
 
         };
 
+        // Testing
+        console.log("[Before Timer] triviaIndex = " + triviaIndex);
+
+        runTimer(); // Sets off 15 second timer
+
+        $(".buttons").on("click", function() {
+            
+            userChoice = $(this).val();
+
+            // Testing
+            console.log("UserChoice = " + userChoice);
+
+            clearInterval(intervalId);
+            renderAnswerPage();
+
+        });
+
     };
 
     function renderAnswerPage() {
+
+        clearPage(); // Clears all elements
+
+        var answer = trivia[triviaIndex].answerIndex;
+
+        // Testing
+        console.log("[AnswerPage] Answer = " + answer);
 
         $("#triviaTime").addClass("time");
         $("#message").addClass("message");
         $("#correctAnswer").addClass("answerInfo");
         $("#answerInfo").addClass("answerInfo");
-        $("#triviaTime").html("Time Remaining: ");
+        $("#triviaTime").html("Time Remaining: " + seconds);;
 
-        if (true) {
+        if (userChoice == trivia[triviaIndex].answerIndex) {
             correctAnswers++;
             var correctMessage = messages.correct[Math.floor(Math.random() * messages.correct.length)];
             $("#message").text(correctMessage);
@@ -174,39 +203,96 @@ $(document).ready(function () {
         else {
             incorrectAnswers++;
             var incorrectMessage = messages.incorrect[Math.floor(Math.random() * messages.incorrect.length)];
-            var answer = trivia[triviaIndex].answerIndex;
             $("#message").text(incorrectMessage);
             $("#correctAnswer").html('The correct answer was: <strong>' + trivia[triviaIndex].choices[answer] + '</strong>');
             $("#answerInfo").html('<strong>' + trivia[triviaIndex].answerInfo + '</strong>');
         }
 
-        triviaIndex++;
-
-    }
+        if (triviaIndex == (triviaIndex.length - 1)) {
+            setTimeout(renderConclusionPage, 3000);
+        }
+        else {
+            userChoice = null;
+            triviaIndex++;
+            setTimeout(renderTriviaPage, 3000);
+        }
+    };
 
     function renderConclusionPage() {
 
+        clearPage(); // Clears all elements
+
         var button = $("<button>");
         var correct = '<p>Correct Answers: <strong>' + correctAnswers + '</strong></p>';
+        var farewell = messages.gameOver[Math.floor(Math.random() * messages.gameOver.length)];
         var incorrect = '<p>Incorrect Answers: <strong>' + incorrectAnswers + '</strong></p>';
         var totalAnswered = correctAnswers + incorrectAnswers;
         var unanswered = '<p>Unanswered: <strong>' + (21 - totalAnswered) + '</strong></p>';
         var results = correct + incorrect + unanswered; 
-        var farewell = messages.gameOver[Math.floor(Math.random() * messages.gameOver.length)];
 
 
-        button.addClass("restartButton startButton").text("START OVER?");
+        button.addClass("startButton").text("START OVER?");
         $("#finalMessage").addClass("message").text(farewell);
         $("#results").addClass("answerInfo");
         $("#results").append(results);
         $("#restart").html(button);
 
-    }
+    };
 
+    function clearPage() {
 
-    // renderAnswerPage();
-    // renderConclusionPage();
-    // renderStartPage();
-    // renderTriviaPage();
+        $("#start").empty();
+        $("#intro").empty();
+        $("#rules").empty();
+        $(".rules").empty();
+        $("#triviaTime").empty();
+        $("#question").empty();
+        $("#choices").empty();
+        $("#message").empty();
+        $("#correctAnswer").empty();
+        $("#answerInfo").empty();
+        $("#finalMessage").empty();
+        $("#results").empty();
+        $("#restart").empty();
+
+    };
+
+    function runTimer() {
+
+        clearInterval(intervalId);
+        seconds = 15;
+        intervalId = setInterval(displayTimer, 1000);
+    };
+
+    function displayTimer() {
+
+        $("#triviaTime").addClass("time");
+        $("#triviaTime").html("Time Remaining: " + seconds);
+        seconds--;
+
+        if (seconds === 0) {
+            number = 15; // Timer reset
+            renderAnswerPage();
+        }
+      }
+  
+    renderStartPage();
+
+    $(document).on("click", ".startButton", function() {
+
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        triviaIndex = 0;
+
+        console.log("[Start] TriviaIndex: " + triviaIndex);
+
+        renderTriviaPage();
+
+    });
+
+    $(document).on("click", ".buttons", function() {
+
+        renderAnswerPage();
+    });
 
 });
