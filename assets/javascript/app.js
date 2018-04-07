@@ -163,8 +163,8 @@ $(document).ready(function () {
 
         runTimer(); // Sets off 10 second timer
 
-        $(".buttons").on("click", function() {
-            
+        $(".buttons").on("click", function () {
+
             userChoice = $(this).val();
             answered = true;
             clearInterval(intervalId); // Stops timer
@@ -225,7 +225,7 @@ $(document).ready(function () {
         var incorrect = '<p>Incorrect Answers: <strong>' + incorrectAnswers + '</strong></p>';
         var totalAnswered = correctAnswers + incorrectAnswers;
         var unanswered = '<p>Unanswered: <strong>' + (21 - totalAnswered) + '</strong></p>';
-        var results = correct + incorrect + unanswered; 
+        var results = correct + incorrect + unanswered;
 
         $("#triviaTime").html("<style='display:none'>");
         button.addClass("startButton").text("START OVER?");
@@ -256,11 +256,11 @@ $(document).ready(function () {
             answered = false;
             renderAnswerPage();
         }
-      }
-  
+    }
+
     renderStartPage();
 
-    $(document).on("click", ".startButton", function() {
+    $(document).on("click", ".startButton", function () {
 
         correctAnswers = 0;
         incorrectAnswers = 0;
