@@ -206,12 +206,12 @@ $(document).ready(function () {
         }
 
         if (triviaIndex == 20) {
-            setTimeout(renderConclusionPage, 2000);
+            setTimeout(renderConclusionPage, 3000);
         }
         else {
             userChoice = null;
             triviaIndex++;
-            setTimeout(renderTriviaPage, 2000);
+            setTimeout(renderTriviaPage, 3000);
         }
     };
 
